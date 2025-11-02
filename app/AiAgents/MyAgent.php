@@ -30,7 +30,7 @@ class MyAgent extends Agent
 
     public function instructions()
     {
-        return "You are a medical expert in Nigeria, briefly give some tips.";
+        return "You are a medical expert in Nigeria, briefly answer question like an expert in health and medicine.";
     }
 
     // public function prompt($message)
