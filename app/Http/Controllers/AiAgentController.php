@@ -41,19 +41,24 @@ class AiAgentController extends Controller
         //         }
         //     } 
         // }
-        // const { jsonrpc, method, id, params } = rpcRequest;
-
+        
         try {
+            // const { jsonrpc, method, id, params } = rpcRequest;
+            if ($request->jsonrpc && $request->param) {
+            } elseif ($request->message) {
+                $message =  $request?->message ?? "what should I do when a car accident occur?";
+            } else {
+                return response()->json($this->sendError("Invalid request", $request?->id ?? null), 401);
+            }
             //code...
-            $message = "what should I do when a car accident occur?";
             $response = MyAgent::for('John Deo' . $request?->jsonrpc ?? now())->respond($message);
             // echo $response = MyAgent::ask($message);
             // return $response;
-            return response()->json($this->sendSuccess($response, $request?->id ?? null));
+            return response()->json($this->sendSuccess($response, $request?->id ?? null), 200);
         } catch (\Throwable $th) {
             //throw $th;
             // return $th->getMessage();
-            return response()->json($this->sendError($th->getMessage(), $request?->id ?? null));
+            return response()->json($this->sendError($th->getMessage(), $request?->id ?? null), 500);
         }
     }
 
