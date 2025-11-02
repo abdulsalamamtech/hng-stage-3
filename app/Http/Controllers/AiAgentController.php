@@ -13,7 +13,10 @@ class AiAgentController extends Controller
      */
     public function index()
     {
-        return request()->all();
+        return [
+            "id" => date('s', time()),
+            "request" => request()->all()
+        ];
     }
 
     /**
@@ -59,7 +62,10 @@ class AiAgentController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return [
+            "id" => $id,
+            "request" => request()->all()
+        ];
     }
 
     /**
@@ -67,7 +73,10 @@ class AiAgentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        return [
+            "id" => $id,
+            "request" => $request->all()
+        ];
     }
 
     /**
@@ -75,7 +84,10 @@ class AiAgentController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return [
+            "id" => $id,
+            "request" => request()->all()
+        ];
     }
 
     // Emergent AI
