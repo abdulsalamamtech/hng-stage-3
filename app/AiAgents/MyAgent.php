@@ -13,7 +13,7 @@ class MyAgent extends Agent
     // protected $history = 'in_memory';
     protected $history = 'cache';
     // Limits the length of the AI’s response.
-    protected $maxCompletionTokens = 500;
+    protected $maxCompletionTokens = 1024;
     // Controls randomness: 0.0 for focused responses, 2.0 for creative ones.
     protected $temperature = 0.7; // Balanced
 

@@ -11,11 +11,22 @@ class AiAgentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        // return [$request->jsonrpc, $request?->params['message']['parts'][0]['text']];
+        // $request?->param?->message?->parts->text
+        // const { jsonrpc, method, id, params } = rpcRequest;
+        if ($request->jsonrpc && $request->jsonrpc && $request?->filled('params.message.parts.0.text')) {
+            $prompt = $request?->params['message']['parts'][0]['text'] ?? "";
+        } elseif ($request->message) {
+            $prompt =  $request?->message ?? "Give me a fun fact about medical science and healthcare";
+        } else {
+            return response()->json($this->sendError("Invalid request", $request?->id ?? null), 401);
+        }
         return [
             "id" => date('s', time()),
-            "request" => request()->all()
+            "request" => request()->all(),
+            "prompt" => $prompt
         ];
     }
 
@@ -41,17 +52,18 @@ class AiAgentController extends Controller
         //         }
         //     } 
         // }
-        
+        $prompt = "";
         try {
             // const { jsonrpc, method, id, params } = rpcRequest;
-            if ($request->jsonrpc && $request->param) {
+            if ($request->jsonrpc && $request->jsonrpc && $request?->filled('params.message.parts.0.text')) {
+                $prompt = $request?->params['message']['parts'][0]['text'] ?? "";
             } elseif ($request->message) {
-                $message =  $request?->message ?? "what should I do when a car accident occur?";
+                $prompt =  $request?->message ?? "Give me a fun fact about medical science and healthcare";
             } else {
                 return response()->json($this->sendError("Invalid request", $request?->id ?? null), 401);
             }
             //code...
-            $response = MyAgent::for('John Deo' . $request?->jsonrpc ?? now())->respond($message);
+            $response = MyAgent::for('John Deo' . $request?->jsonrpc ?? now())->respond($prompt);
             // echo $response = MyAgent::ask($message);
             // return $response;
             return response()->json($this->sendSuccess($response, $request?->id ?? null), 200);
@@ -120,6 +132,7 @@ class AiAgentController extends Controller
             "result" => [
                 "role" => "user" ?? "agent",
                 "part" => [
+                    "kind" => "text",
                     "type" => "text",
                     "text" => $data
                 ],
