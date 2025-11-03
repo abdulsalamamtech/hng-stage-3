@@ -32,7 +32,28 @@ Content-Type: application/json
 
 ### POST /agents → Send request to an agent online
 
-POST https://hngi13-backend-task-production.up.railway.app/agent?message=%22I%20am%20feeling%20dizzy%22
+POST https://hngi13-backend-task-production.up.railway.app/api/agents
 Content-Type: application/json
 
-{}
+{
+    "jsonrpc": "2.0",
+    "id": "test-001",
+    "method": "message/send",
+    "params": {
+      "message": {
+        "kind": "message",
+        "role": "user",
+        "parts": [
+          {
+            "kind": "text",
+            "text": "I am going on a road trip alone"
+          }
+        ],
+        "messageId": "msg-001",
+        "taskId": "task-001"
+      },
+      "configuration": {
+        "blocking": true
+      }
+    }
+  }

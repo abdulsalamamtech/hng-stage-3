@@ -14,10 +14,11 @@ Route::get('/', function () {
 
 
 // A chat bot that answers medical emergency related questions only, just tips on what to do based on described emergency.
-// Name: Emergent Assistant Title: Emergency Tips
+// Name: Emergent Assistant Title: Health & Emergency Tips
 // Job: A chat bot that answers medical emergency related questions & help with tips!
+// https://telex.im/ai-coworkers/emergent-29f4e6f93104
 Route::get('/agent', [AiAgentController::class, 'store']);
-
+    
 
 
 

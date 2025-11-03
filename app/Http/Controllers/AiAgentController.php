@@ -131,7 +131,7 @@ class AiAgentController extends Controller
             "id" => $id ?? null,
             "result" => [
                 "role" => "user" ?? "agent",
-                "part" => [
+                "parts" => [
                     "kind" => "text",
                     "type" => "text",
                     "text" => $data
