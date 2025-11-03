@@ -9,6 +9,8 @@
 
 ## The Project
 
+<img src="./emergent-telex-image.png">
+
 On this week HNG project I built a Laravel AI Agent for emergency tips
 This task validates my ability to work with dynamic A2A AI Agents protocol.
 
